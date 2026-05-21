@@ -41,7 +41,7 @@ function Timer({ totalSeconds, onTimeUp, onTick }) {
   }, [onTimeUp]);
 
   return (
-    <div className={`timer ${remaining < 300 ? 'danger' : ''}`}>
+    <div className={`timer ${remaining < 300 ? 'danger' : ''}`} aria-live="polite">
       <span>{ui.timeLeft[language]}</span>
       <strong>{formatTime(remaining)}</strong>
     </div>

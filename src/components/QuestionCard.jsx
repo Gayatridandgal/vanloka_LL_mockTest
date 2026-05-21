@@ -22,12 +22,14 @@ function QuestionCard({ question, selectedIndex, onSelect, showReview = false, u
             <button
               className={`option-card ${isSelected ? 'selected' : ''} ${reviewClass}`}
               disabled={showReview}
+              aria-pressed={isSelected && !showReview}
+              aria-label={option.text[language]}
               key={`${question.id}-${option.originalIndex}`}
               onClick={() => onSelect(index)}
               type="button"
             >
               <span className="option-letter">{letters[index]}</span>
-              <span>{option.text[language]}</span>
+              <span className="option-copy">{option.text[language]}</span>
             </button>
           );
         })}

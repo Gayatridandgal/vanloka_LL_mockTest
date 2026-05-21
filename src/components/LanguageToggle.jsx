@@ -15,6 +15,8 @@ function LanguageToggle() {
         <button
           className={language === item.code ? 'active' : ''}
           key={item.code}
+          aria-pressed={language === item.code}
+          title={`Switch language to ${item.label}`}
           onClick={() => setLanguage(item.code)}
           type="button"
         >

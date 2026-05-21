@@ -6,7 +6,7 @@ function ProgressBar({ current, total }) {
   const percent = Math.round((current / total) * 100);
 
   return (
-    <div className="progress-wrap">
+    <div className="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={percent}>
       <div className="progress-label">
         <span>
           {ui.questionOf[language]} {current} {ui.of[language]} {total}
