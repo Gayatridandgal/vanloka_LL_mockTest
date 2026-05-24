@@ -16,6 +16,32 @@ For production, expose a backend verification endpoint and set:
 
 The frontend sends a `POST` request with `traineeId`, `phone`, `token`, `source`, and `table`. The backend should verify against Azure Postgres table `postgres.mds.mds_trainees` and return trainee details such as `name`, `phone`, and `id`.
 
+## Backend API
+
+This project now includes a small Node.js backend in `server/index.js`. It keeps AI calls behind a server boundary so the frontend does not call Gemini directly.
+
+Create `.env.local` from `.env.example` and set:
+
+### `GEMINI_API_KEY`
+
+Used by the backend for Gemini-powered dashboard recommendations and result reports.
+
+### `GEMINI_MODEL`
+
+Defaults to `gemini-2.5-flash`.
+
+Run the backend with:
+
+### `npm run server`
+
+The API runs on [http://localhost:4000](http://localhost:4000). The CRA dev server proxies `/api/*` calls to this backend.
+
+Available API endpoints:
+
+- `GET /api/health`
+- `POST /api/ai/dashboard-recommendations`
+- `POST /api/ai/performance-report`
+
 ### `npm start`
 
 Runs the app in the development mode.\

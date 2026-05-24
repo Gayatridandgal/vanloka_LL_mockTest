@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 function TraineePortal() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { demoCredentials, isAuthenticated, login, user } = useAuth();
+  const { demoCredentials, isAuthenticated, login } = useAuth();
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,6 +59,7 @@ function TraineePortal() {
           <button className="btn primary full-width" disabled={isSubmitting} type="submit">
             {isSubmitting ? 'Signing in...' : 'Confirm / Login'}
           </button>
+          {error && <p className="login-error" role="alert">{error}</p>}
         </form>
       </section>
     </main>
