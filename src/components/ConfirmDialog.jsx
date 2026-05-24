@@ -6,6 +6,8 @@ function ConfirmDialog({
   onConfirm,
   onCancel,
   danger = false,
+  children,
+  confirmDisabled = false,
 }) {
   return (
     <div className="modal-backdrop" role="presentation">
@@ -13,9 +15,10 @@ function ConfirmDialog({
         <div className={`confirm-icon ${danger ? 'danger' : ''}`} aria-hidden="true">{danger ? '!' : '?'}</div>
         <h2 id="confirm-title">{title}</h2>
         <p>{message}</p>
+        {children}
         <div className="confirm-actions">
           <button className="btn outline" onClick={onCancel} type="button">{cancelLabel}</button>
-          <button className={`btn ${danger ? 'danger' : 'primary'}`} onClick={onConfirm} type="button">
+          <button className={`btn ${danger ? 'danger' : 'primary'}`} disabled={confirmDisabled} onClick={onConfirm} type="button">
             {confirmLabel}
           </button>
         </div>

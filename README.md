@@ -6,6 +6,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## Trainee mobile app link
+
+Use `/trainee` as the website link from the trainee mobile app. The page accepts optional query params such as `traineeId`, `phone`, or `token`, verifies the trainee, shows the trainee name and phone number, then lets the trainee take the mock test.
+
+For production, expose a backend verification endpoint and set:
+
+### `REACT_APP_TRAINEE_VERIFY_URL`
+
+The frontend sends a `POST` request with `traineeId`, `phone`, `token`, `source`, and `table`. The backend should verify against Azure Postgres table `postgres.mds.mds_trainees` and return trainee details such as `name`, `phone`, and `id`.
+
 ### `npm start`
 
 Runs the app in the development mode.\

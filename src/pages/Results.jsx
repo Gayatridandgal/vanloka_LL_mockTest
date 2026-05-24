@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ConfirmDialog from '../components/ConfirmDialog';
+import PageTopNav from '../components/PageTopNav';
 import QuestionCard from '../components/QuestionCard';
 import { formatTime } from '../components/Timer';
 import { questions } from '../data/questions';
@@ -123,6 +124,7 @@ function Results() {
 
   return (
     <main className="app-shell results-shell">
+      <PageTopNav />
       {passed && <div className="confetti" aria-hidden="true">{Array.from({ length: 24 }).map((_, index) => <span key={index} />)}</div>}
       <div className="results-layout">
         <section className="panel-card result-summary">
@@ -139,6 +141,14 @@ function Results() {
             {ui.scored[language]} <strong>{result.score}/{result.total}</strong> ({percentage}%)
           </p>
           <p className="muted">{ui.timeTaken[language]}: {formatTime(result.timeTaken)}</p>
+
+          {result.trainee && (
+            <div className="trainee-mini-card result-trainee">
+              <span>Trainee</span>
+              <strong>{result.trainee.name}</strong>
+              <em>{result.trainee.phone ? `+91 ${result.trainee.phone}` : result.trainee.id}</em>
+            </div>
+          )}
 
           <div className="result-metrics">
             <div>
@@ -241,7 +251,7 @@ function Results() {
           confirmLabel="Start New Test"
           message="Your current result is saved. Start a fresh mock test now?"
           onCancel={() => setShowRetakeConfirm(false)}
-          onConfirm={() => navigate('/test')}
+          onConfirm={() => navigate('/test', { state: { trainee: result.trainee } })}
           title="Retake mock test?"
         />
       )}

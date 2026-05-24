@@ -1,33 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
-import LanguageToggle from '../components/LanguageToggle';
+import PageTopNav from '../components/PageTopNav';
 import { ui } from '../data/ui_strings';
 import { useLanguage } from '../context/LanguageContext';
-
-const featureCards = [
-  {
-    title: 'Structured practice',
-    text: 'A clean test flow with a question navigator, progress tracking, and instant scoring.',
-  },
-  {
-    title: 'Performance analytics',
-    text: 'Review your latest attempts, identify weak categories, and focus on improvement.',
-  },
-  {
-    title: 'Desktop-first layout',
-    text: 'Optimized for large screens with clear hierarchy, cards, and responsive density.',
-  },
-  {
-    title: 'Multilingual support',
-    text: 'Switch between English, Kannada, and Hindi without losing the current session state.',
-  },
-];
-
-const navigation = [
-  { label: 'Home', to: '/' },
-  { label: 'Start Test', to: '/test' },
-  { label: 'Progress Dashboard', to: '/dashboard' },
-  { label: 'Result Review', to: '/results' },
-];
 
 function getLastScore() {
   const history = JSON.parse(localStorage.getItem('vanloka_test_history') || '[]');
@@ -41,91 +15,50 @@ function Home() {
   const passedLast = last?.score >= 12;
 
   return (
-    <main className="app-shell dashboard-layout landing-shell">
-      <aside className="sidebar landing-sidebar">
-        <div className="sidebar-brand">
-          <div className="brand">{ui.appName[language]}</div>
-          <p className="sidebar-subtitle">RTO learner license practice</p>
-        </div>
-
-        <nav className="nav-list" aria-label="Primary navigation">
-          {navigation.map((item) => (
-            <Link className={`nav-link ${item.to === '/' ? 'active' : ''}`} key={item.to} to={item.to}>
-              <span>{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-
-        <div className="sidebar-card">
-          <span className="eyebrow">Language</span>
-          <LanguageToggle />
-        </div>
-
-        <div className="sidebar-card info-stack">
-          <div>
-            <span className="info-label">Session mode</span>
-            <strong>Practice and review</strong>
-          </div>
-          <div>
-            <span className="info-label">Target pass mark</span>
-            <strong>12 / 20</strong>
-          </div>
-        </div>
-      </aside>
-
-      <section className="workspace">
-        <header className="topbar">
-          <div>
+    <main className="app-shell landing-shell landing-page">
+      <PageTopNav />
+      <section className="workspace landing-workspace">
+        <header className="landing-hero panel-card">
+          <div className="landing-copy">
             <span className="eyebrow">Enterprise practice suite</span>
             <h1>{ui.headline[language]}</h1>
-            <p className="topbar-copy">A refined test experience for learners, instructors, and admin review on large screens.</p>
-          </div>
-
-          <div className="topbar-actions">
-            <Link className="btn outline" to="/dashboard">{ui.progress[language]}</Link>
-            <button className="btn primary" onClick={() => navigate('/test')} type="button">
-              {ui.startTest[language]}
-            </button>
-          </div>
-        </header>
-
-        <section className="hero-grid">
-          <article className="panel-card hero-panel span-7">
-            <span className="pill">Karnataka learner license prep</span>
-            <h2>Practice, track, and improve with a clear desktop-first workflow.</h2>
-            <p>
-              VanLoka keeps the test flow focused with structured navigation, high-contrast analytics,
-              and a calm interface that feels closer to a modern SaaS dashboard than a quiz app.
-            </p>
-
-            <div className="hero-actions">
-              <button className="btn primary big" onClick={() => navigate('/test')} type="button">
+            <p className="landing-subcopy">A minimal, full-width practice portal for learners on desktop and laptop screens.</p>
+            <div className="hero-actions landing-actions">
+              <button className="btn primary big" onClick={() => navigate('/trainee')} type="button">
+                Trainee App Link
+              </button>
+              <button className="btn outline big" onClick={() => navigate('/test')} type="button">
                 {ui.startTest[language]}
               </button>
-              <Link className="btn outline big" to="/dashboard">
+              <Link className="btn secondary big" to="/dashboard">
                 {ui.progress[language]}
               </Link>
             </div>
+          </div>
 
-            <div className="mini-metrics" aria-label="Mock test details">
-              <div>
-                <strong>20</strong>
-                <span>Questions</span>
-              </div>
-              <div>
-                <strong>30</strong>
-                <span>Minutes</span>
-              </div>
-              <div>
-                <strong>12/20</strong>
-                <span>Pass mark</span>
-              </div>
+          <div className="landing-summary">
+            <div className="summary-card">
+              <span>Practice library</span>
+              <strong>100+ questions</strong>
             </div>
-          </article>
+            <div className="summary-card">
+              <span>Test length</span>
+              <strong>30 minutes</strong>
+            </div>
+            <div className="summary-card">
+              <span>Pass mark</span>
+              <strong>12 / 20</strong>
+            </div>
+          </div>
+        </header>
 
-          <aside className={`panel-card insight-panel span-5 ${last ? 'has-score' : ''}`}>
-            <div className="score-panel-header">
-              <span className="eyebrow">Latest attempt</span>
+        <section className="landing-grid">
+          <article className={`panel-card landing-card ${last ? 'has-score' : ''}`}>
+            <div className="section-heading">
+              <div>
+                <h2>Latest attempt</h2>
+                <span>Quick result snapshot</span>
+              </div>
               <span className={`status-pill ${passedLast ? 'success' : 'warning'}`}>{passedLast ? 'On track' : 'Needs review'}</span>
             </div>
 
@@ -137,60 +70,52 @@ function Home() {
               </div>
             ) : (
               <div className="empty-state compact">
-                <p>No results yet. Start your first mock test to unlock dashboard analytics.</p>
+                <p>No results yet. Start your first mock test to unlock analytics.</p>
                 <button className="btn primary" onClick={() => navigate('/test')} type="button">
                   {ui.startTest[language]}
                 </button>
               </div>
             )}
+          </article>
 
-            <div className="insight-grid">
-              <div className="insight-card">
-                <span>Reading speed</span>
-                <strong>Steady</strong>
-              </div>
-              <div className="insight-card">
-                <span>Attempt cadence</span>
-                <strong>Consistent</strong>
-              </div>
-              <div className="insight-card">
-                <span>Focus area</span>
-                <strong>Road signs</strong>
+          <article className="panel-card landing-card">
+            <div className="section-heading">
+              <div>
+                <h2>Quick access</h2>
+                <span>Minimal navigation</span>
               </div>
             </div>
-          </aside>
-        </section>
 
-        <section className="stats-grid">
-          <article className="metric-card">
-            <span>Practice library</span>
-            <strong>100+</strong>
-            <p>{ui.stats[language]}</p>
+            <div className="landing-links">
+              <Link className="landing-link" to="/trainee">Trainee App Link</Link>
+              <Link className="landing-link" to="/dashboard">Progress Dashboard</Link>
+              <Link className="landing-link" to="/results">Result Review</Link>
+            </div>
           </article>
-          <article className="metric-card">
-            <span>Result speed</span>
-            <strong>Instant</strong>
-            <p>Scoring, review, and AI feedback are available after submission.</p>
-          </article>
-          <article className="metric-card">
-            <span>Desktop layout</span>
-            <strong>1440px+</strong>
-            <p>Designed to take advantage of wide screens with generous spacing and hierarchy.</p>
-          </article>
-          <article className="metric-card">
-            <span>Accessibility</span>
-            <strong>Clear</strong>
-            <p>Readable typography, strong contrast, and responsive touch targets across the app.</p>
-          </article>
-        </section>
 
-        <section className="feature-grid">
-          {featureCards.map((card) => (
-            <article className="feature-card" key={card.title}>
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-            </article>
-          ))}
+          <article className="panel-card landing-card">
+            <div className="section-heading">
+              <div>
+                <h2>What you get</h2>
+                <span>Designed for desktop and laptop screens</span>
+              </div>
+            </div>
+
+            <div className="landing-points">
+              <div>
+                <strong>Clean layout</strong>
+                <span>No sidebar clutter, only the essentials.</span>
+              </div>
+              <div>
+                <strong>Full width</strong>
+                <span>Content stretches naturally across larger screens.</span>
+              </div>
+              <div>
+                <strong>Simple flow</strong>
+                <span>Start test, confirm session, review result.</span>
+              </div>
+            </div>
+          </article>
         </section>
       </section>
     </main>

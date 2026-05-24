@@ -8,7 +8,7 @@ function formatTime(seconds) {
   return `${minutes}:${secs}`;
 }
 
-function Timer({ totalSeconds, onTimeUp, onTick }) {
+function Timer({ totalSeconds, onTimeUp, onTick, isRunning = true }) {
   const [remaining, setRemaining] = useState(totalSeconds);
   const calledTimeUp = useRef(false);
   const { language } = useLanguage();
@@ -23,6 +23,8 @@ function Timer({ totalSeconds, onTimeUp, onTick }) {
   }, [remaining, onTick]);
 
   useEffect(() => {
+    if (!isRunning) return undefined;
+
     const timerId = setInterval(() => {
       setRemaining((current) => {
         if (current <= 1) {
@@ -38,7 +40,7 @@ function Timer({ totalSeconds, onTimeUp, onTick }) {
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [onTimeUp]);
+  }, [isRunning, onTimeUp]);
 
   return (
     <div className={`timer ${remaining < 300 ? 'danger' : ''}`} aria-live="polite">
