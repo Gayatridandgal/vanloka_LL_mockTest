@@ -1,0 +1,399 @@
+@media (max-width: 1024px) {
+  .landing-hero {
+    padding: 24px;
+  }
+
+  .landing-copy h1 {
+    font-size: clamp(2rem, 4.8vw, 3.4rem);
+  }
+
+  .landing-grid {
+    gap: 18px;
+  }
+
+  .landing-actions,
+  .hero-actions,
+  .topbar-actions,
+  .button-row,
+  .confirm-actions,
+  .test-actions,
+  .action-stack,
+  .dashboard-actions {
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .summary-grid,
+  .stats-grid,
+  .feature-grid,
+  .legend-grid,
+  .analytics-metric-grid,
+  .dashboard-header-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .question-palette {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .landing-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-actions,
+  .available-test-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-header {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .dashboard-header-actions {
+    justify-content: flex-start;
+  }
+
+  .dashboard-analytics-grid,
+  .recommendation-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-analytics-grid .span-7,
+  .dashboard-analytics-grid .span-5 {
+    grid-column: auto;
+  }
+
+  .analytics-metric-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .chart-head,
+  .category-row,
+  .attempt-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chart-head {
+    flex-direction: column;
+  }
+
+  .trend-chart {
+    min-height: 200px;
+  }
+
+  .dashboard-workspace {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 16px 12px 28px;
+  }
+
+  .page-navbar {
+    top: 8px;
+    padding: 10px;
+    gap: 10px;
+    border-radius: 16px;
+  }
+
+  .page-navbar-stack,
+  .page-navbar-actions,
+  .page-corner-controls {
+    width: 100%;
+  }
+
+  .page-navbar-stack {
+    justify-items: stretch;
+  }
+
+  .page-navbar-actions,
+  .page-corner-controls {
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 6px;
+  }
+
+  .page-navbar-link,
+  .page-navbar-logout,
+  .page-corner-theme-toggle,
+  .btn,
+  .nav-link,
+  .theme-toggle,
+  .mobile-menu-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .page-navbar-link,
+  .page-navbar-logout,
+  .page-corner-theme-toggle {
+    min-height: 44px;
+    flex: 1 1 132px;
+  }
+
+  .page-corner-control select {
+    min-width: 0;
+  }
+
+  .landing-hero,
+  .landing-grid,
+  .hero-grid,
+  .content-grid,
+  .dashboard-layout,
+  .results-layout,
+  .test-layout,
+  .dashboard-grid,
+  .dashboard-analytics-grid,
+  .recommendation-grid,
+  .landing-links,
+  .dashboard-actions,
+  .available-test-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .summary-grid,
+  .analytics-metric-grid,
+  .stats-grid,
+  .feature-grid,
+  .legend-grid,
+  .question-palette,
+  .dashboard-header-controls,
+  .confirmation-grid,
+  .session-overview,
+  .trainee-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .landing-copy h1,
+  .topbar h1,
+  .result-summary h1,
+  .dashboard-header h1 {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+  }
+
+  .landing-subcopy,
+  .topbar-copy {
+    font-size: 0.98rem;
+  }
+
+  .landing-hero {
+    padding: 20px;
+  }
+
+  .topbar,
+  .test-rail-header,
+  .result-header,
+  .score-panel-header,
+  .section-heading,
+  .dashboard-header,
+  .platform-nav,
+  .test-actions,
+  .confirm-actions,
+  .last-score,
+  .timeline-row,
+  .person-row,
+  .setting-row,
+  .weak-item {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dashboard-workspace {
+    padding-bottom: 104px;
+  }
+
+  .dashboard-bottom-nav {
+    inset: auto 10px 10px;
+  }
+
+  .bottom-nav-link {
+    min-height: 50px;
+  }
+
+  .dashboard-header {
+    gap: 14px;
+  }
+
+  .dashboard-header-copy p {
+    max-width: none;
+  }
+
+  .dashboard-header-actions,
+  .dashboard-header-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-header-actions .btn,
+  .dashboard-header-controls .select-field,
+  .dashboard-header-controls .theme-toggle,
+  .dashboard-header-controls .dashboard-user-chip,
+  .dashboard-header-controls .mobile-menu-toggle {
+    width: 100%;
+  }
+
+  .analytics-metric-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-analytics-grid,
+  .recommendation-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-analytics-grid .span-7,
+  .dashboard-analytics-grid .span-5 {
+    grid-column: auto;
+  }
+
+  .chart-card,
+  .ai-dashboard-card,
+  .weak-area-card,
+  .recent-attempts-card {
+    padding: 16px;
+  }
+
+  .chart-head {
+    gap: 8px;
+  }
+
+  .trend-chart {
+    min-height: 180px;
+  }
+
+  .category-row,
+  .weak-area-item,
+  .attempt-row {
+    gap: 8px;
+  }
+
+  .dashboard-workspace {
+    padding-bottom: 96px;
+  }
+
+  .question-palette {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .page-navbar {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .page-navbar-actions,
+  .page-corner-controls {
+    padding: 4px;
+    gap: 6px;
+  }
+
+  .page-navbar-link,
+  .page-navbar-logout,
+  .page-corner-theme-toggle,
+  .btn,
+  .nav-link,
+  .theme-toggle,
+  .mobile-menu-toggle {
+    min-height: 42px;
+    font-size: 0.92rem;
+  }
+
+  .landing-hero,
+  .panel-card,
+  .hero-card,
+  .test-panel,
+  .result-summary,
+  .analytics-card,
+  .dashboard-header,
+  .feature-card,
+  .ai-report-card,
+  .roster-card,
+  .settings-card {
+    padding: 16px;
+  }
+
+  .landing-hero {
+    gap: 18px;
+  }
+
+  .landing-copy h1,
+  .topbar h1,
+  .result-summary h1,
+  .dashboard-header h1 {
+    font-size: clamp(1.55rem, 9vw, 2rem);
+  }
+
+  .landing-subcopy,
+  .topbar-copy {
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  .landing-links,
+  .dashboard-actions,
+  .available-test-list,
+  .summary-grid,
+  .analytics-metric-grid,
+  .stats-grid,
+  .feature-grid,
+  .legend-grid,
+  .dashboard-header-controls,
+  .confirmation-grid,
+  .session-overview,
+  .trainee-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .question-palette {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .question-dot {
+    min-height: 38px;
+  }
+
+  .dashboard-bottom-nav {
+    inset: auto 8px 8px;
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .bottom-nav-link {
+    min-height: 48px;
+    font-size: 0.72rem;
+  }
+
+  .dashboard-workspace {
+    padding-bottom: 96px;
+  }
+
+  .dashboard-header-copy p,
+  .confirmation-note,
+  .workflow-card p,
+  .session-chip span:last-child,
+  .landing-subcopy,
+  .topbar-copy {
+    line-height: 1.55;
+  }
+
+  .dashboard-header-actions,
+  .dashboard-header-controls {
+    gap: 8px;
+  }
+
+  .dashboard-bottom-nav {
+    gap: 4px;
+  }
+
+  .dashboard-header-actions .btn,
+  .dashboard-header-controls .select-field,
+  .dashboard-header-controls .theme-toggle,
+  .dashboard-header-controls .dashboard-user-chip,
+  .dashboard-header-controls .mobile-menu-toggle {
+    min-height: 44px;
+  }
+}

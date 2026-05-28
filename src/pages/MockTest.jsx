@@ -42,7 +42,6 @@ function MockTest() {
   const { language } = useLanguage();
   const trainee = state?.trainee || getVerifiedTrainee();
   const [testQuestions] = useState(() => shuffle(questions).slice(0, TEST_SIZE).map(prepareQuestion));
-  const [hasAcceptedRules, setHasAcceptedRules] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [remainingSeconds, setRemainingSeconds] = useState(TOTAL_SECONDS);
@@ -55,10 +54,6 @@ function MockTest() {
   const answeredCount = Object.keys(selectedAnswers).length;
   const unansweredCount = testQuestions.length - answeredCount;
   const progress = useMemo(() => Math.round(((currentIndex + 1) / testQuestions.length) * 100), [currentIndex, testQuestions.length]);
-
-  const beginTest = () => {
-    setHasAcceptedRules(true);
-  };
 
   const submitTest = useCallback(() => {
     if (submitted.current) return;
@@ -145,7 +140,7 @@ function MockTest() {
             <button className="btn quiet danger-text" onClick={requestCancel} type="button">Cancel Test</button>
           </div>
 
-          <Timer isRunning={hasAcceptedRules} totalSeconds={TOTAL_SECONDS} onTick={setRemainingSeconds} onTimeUp={submitTest} />
+          <Timer isRunning totalSeconds={TOTAL_SECONDS} onTick={setRemainingSeconds} onTimeUp={submitTest} />
 
           {trainee ? (
             <div className="trainee-mini-card">
@@ -225,67 +220,38 @@ function MockTest() {
         </aside>
 
         <section className="panel-card test-stage">
-          {!hasAcceptedRules ? (
-            <div className="test-intro">
-              <span className="eyebrow">Ready to begin</span>
+          <div className="stage-header">
+            <div>
+              <span className="eyebrow">Current question</span>
               <h1>{ui.headline[language]}</h1>
-              <p className="topbar-copy">Review the rules below, then start the mock test when you are ready.</p>
-
-              <div className="rules-panel">
-                <h2>Rules and regulations</h2>
-                <ul className="rules-list">
-                  <li>Do not refresh or close the browser during the attempt.</li>
-                  <li>Answer all questions carefully before submitting.</li>
-                  <li>Use the navigator to revisit questions if needed.</li>
-                  <li>Canceling the test will discard the current attempt.</li>
-                </ul>
-              </div>
-
-              <div className="test-actions intro-actions">
-                <button className="btn outline" onClick={() => navigate('/dashboard')} type="button">
-                  Not Now
-                </button>
-                <button className="btn primary" onClick={beginTest} type="button">
-                  Ready, Start Test
-                </button>
-              </div>
+              <p className="topbar-copy">Answer clearly, keep the current pace, and use the navigator when you need to revisit a prompt.</p>
             </div>
-          ) : (
-            <>
-              <div className="stage-header">
-                <div>
-                  <span className="eyebrow">Current question</span>
-                  <h1>{ui.headline[language]}</h1>
-                  <p className="topbar-copy">Answer clearly, keep the current pace, and use the navigator when you need to revisit a prompt.</p>
-                </div>
 
-                <ProgressBar current={currentIndex + 1} total={testQuestions.length} />
-              </div>
+            <ProgressBar current={currentIndex + 1} total={testQuestions.length} />
+          </div>
 
-              <QuestionCard question={currentQuestion} selectedIndex={selectedIndex} onSelect={selectAnswer} />
+          <QuestionCard question={currentQuestion} selectedIndex={selectedIndex} onSelect={selectAnswer} />
 
-              <div className="test-actions">
-                <button
-                  className="btn outline"
-                  disabled={currentIndex === 0}
-                  onClick={() => setCurrentIndex((index) => index - 1)}
-                  type="button"
-                >
-                  Previous
-                </button>
-                <span className="helper-text">{helperText || `${answeredCount} answered, ${unansweredCount} remaining`}</span>
-                <div className="action-stack">
-                  <button
-                    className="btn primary"
-                    onClick={isLast ? requestSubmit : () => setCurrentIndex((index) => index + 1)}
-                    type="button"
-                  >
-                    {isLast ? ui.submitTest[language] : ui.next[language]}
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
+          <div className="test-actions">
+            <button
+              className="btn outline"
+              disabled={currentIndex === 0}
+              onClick={() => setCurrentIndex((index) => index - 1)}
+              type="button"
+            >
+              Previous
+            </button>
+            <span className="helper-text">{helperText || `${answeredCount} answered, ${unansweredCount} remaining`}</span>
+            <div className="action-stack">
+              <button
+                className="btn primary"
+                onClick={isLast ? requestSubmit : () => setCurrentIndex((index) => index + 1)}
+                type="button"
+              >
+                {isLast ? ui.submitTest[language] : ui.next[language]}
+              </button>
+            </div>
+          </div>
         </section>
       </div>
 
@@ -319,22 +285,6 @@ function MockTest() {
         </ConfirmDialog>
       )}
 
-      {!hasAcceptedRules && (
-        <ConfirmDialog
-          cancelLabel="Review Later"
-          confirmLabel="Ready, Start Test"
-          message="Please read the rules carefully before you begin."
-          onCancel={() => navigate('/dashboard')}
-          onConfirm={beginTest}
-          title="Ready to begin?"
-        >
-          <ul className="confirm-list">
-            <li>Answer all questions on your own.</li>
-            <li>Do not refresh or close the browser.</li>
-            <li>Canceling will end the attempt and lose current answers.</li>
-          </ul>
-        </ConfirmDialog>
-      )}
     </main>
   );
 }

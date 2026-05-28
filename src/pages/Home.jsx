@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ConfirmDialog from '../components/ConfirmDialog';
 import PageTopNav from '../components/PageTopNav';
 import { ui } from '../data/ui_strings';
 import { useLanguage } from '../context/LanguageContext';
@@ -11,6 +13,7 @@ function getLastScore() {
 function Home() {
   const navigate = useNavigate();
   const { language } = useLanguage();
+  const [showStartDialog, setShowStartDialog] = useState(false);
   const last = getLastScore();
   const passedLast = last?.score >= 12;
 
@@ -24,10 +27,7 @@ function Home() {
             <h1>{ui.headline[language]}</h1>
             <p className="landing-subcopy">A minimal, full-width practice portal for learners on desktop and laptop screens.</p>
             <div className="hero-actions landing-actions">
-              <button className="btn primary big" onClick={() => navigate('/trainee')} type="button">
-                Trainee App Link
-              </button>
-              <button className="btn outline big" onClick={() => navigate('/test')} type="button">
+              <button className="btn outline big" onClick={() => setShowStartDialog(true)} type="button">
                 {ui.startTest[language]}
               </button>
               <Link className="btn secondary big" to="/dashboard">
@@ -71,7 +71,7 @@ function Home() {
             ) : (
               <div className="empty-state compact">
                 <p>No results yet. Start your first mock test to unlock analytics.</p>
-                <button className="btn primary" onClick={() => navigate('/test')} type="button">
+                <button className="btn primary" onClick={() => setShowStartDialog(true)} type="button">
                   {ui.startTest[language]}
                 </button>
               </div>
@@ -87,7 +87,6 @@ function Home() {
             </div>
 
             <div className="landing-links">
-              <Link className="landing-link" to="/trainee">Trainee App Link</Link>
               <Link className="landing-link" to="/dashboard">Progress Dashboard</Link>
               <Link className="landing-link" to="/results">Result Review</Link>
             </div>
@@ -118,6 +117,17 @@ function Home() {
           </article>
         </section>
       </section>
+
+      {showStartDialog && (
+        <ConfirmDialog
+          cancelLabel="Review Later"
+          confirmLabel="Ready, Start Test"
+          message="Please read the rules carefully before you begin. Answer all questions on your own. Do not refresh or close the browser. Canceling will end the attempt and lose current answers."
+          onCancel={() => setShowStartDialog(false)}
+          onConfirm={() => navigate('/test')}
+          title="Ready to begin?"
+        />
+      )}
     </main>
   );
 }

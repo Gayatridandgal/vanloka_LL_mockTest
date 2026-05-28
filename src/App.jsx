@@ -2,12 +2,14 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
 import Home from './pages/Home';
+import TestInstructions from './pages/TestInstructions';
 import MockTest from './pages/MockTest';
 import Results from './pages/Results';
 import Dashboard from './pages/Dashboard';
 import TraineePortal from './pages/TraineePortal';
 import RequireAuth from './components/RequireAuth';
 import './styles/theme.css';
+import './styles/responsive.css';
 
 function App() {
   return (
@@ -27,6 +29,14 @@ function App() {
             <Route path="/trainee" element={<Navigate to="/login" replace />} />
             <Route
               path="/test"
+              element={(
+                <RequireAuth>
+                  <TestInstructions />
+                </RequireAuth>
+              )}
+            />
+            <Route
+              path="/test/start"
               element={(
                 <RequireAuth>
                   <MockTest />

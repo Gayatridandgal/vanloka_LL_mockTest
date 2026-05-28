@@ -7,23 +7,12 @@ const DEMO_MOBILE = '9874563210';
 
 const AuthContext = createContext(null);
 
-function getStoredSession() {
-  if (typeof window === 'undefined') return null;
-
-  try {
-    return JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
-  } catch (error) {
-    console.log('Unable to read auth session:', error);
-    return null;
-  }
-}
-
 function normalizeMobile(value) {
   return String(value || '').replace(/\D/g, '').slice(-10);
 }
 
 export function AuthProvider({ children }) {
-  const [session, setSession] = useState(() => getStoredSession());
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
     if (!session) {
